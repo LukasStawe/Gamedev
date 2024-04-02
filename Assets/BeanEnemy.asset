@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79a336d500d3cc4449e72813eafbd958, type: 3}
+  m_Name: BeanEnemy
+  m_EditorClassIdentifier: 
+  name: Bean Enemy
+  attackDamage: 5
+  attackRange: 1.5
+  attackSpeed: 1
+  maxHealth: 50
+  movementSpeed: 2
+  detectionRadius: 10
+  chaseRange: 15
+  armor: 4
+  addsJournalEntry: 1
+  journalID: 11
+  Loot:
+  - {fileID: 11400000, guid: 71f641b78dd62aa4295db2f5346c36f0, type: 2}
+  - {fileID: 11400000, guid: c99ddaad70705fa4ba1856125b861e58, type: 2}

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6193b3f9cf18b34889b25d83f499926, type: 3}
+  m_Name: SwordTest
+  m_EditorClassIdentifier: 
+  name: Sword
+  description: Description of the Sword
+  icon: {fileID: 0}
+  itemPrefab: {fileID: 6830251870379463601, guid: 65253b2e1c86d5647867d2600e708421, type: 3}
+  equipSlot: 3
+  damageModifier: 10
+  attackRange: 2
+  attackSpeed: 2
+  equipPosition: {x: 0, y: 0.00044, z: 0.00096}
+  equipRotation: {x: 0, y: 0, z: 90}
+  weapon: 0

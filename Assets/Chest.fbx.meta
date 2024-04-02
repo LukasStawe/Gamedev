@@ -1,0 +1,359 @@
+fileFormatVersion: 2
+guid: eff5c5a67283fe3469ba4a35a02848be
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall
+    second: {fileID: 2100000, guid: f4027703c23e94f47a29dfddfe2717c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.001
+    second: {fileID: 2100000, guid: af72d8048be37a14396d4440dcefc69e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.002
+    second: {fileID: 2100000, guid: 482548d5d76ca8d40a12c15fb808cbfe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.003
+    second: {fileID: 2100000, guid: dc1719ca5e70d67499ca3a57bd1ec37d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.004
+    second: {fileID: 2100000, guid: 2dec9c7f9d5e0714da60efe337968d0f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.005
+    second: {fileID: 2100000, guid: 4c71c8cd1d347404194dab33583f3f1d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.006
+    second: {fileID: 2100000, guid: 11fb50da2cffcfb469950d29eadd2f48, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.007
+    second: {fileID: 2100000, guid: 45c46d012dc21b846ae9e65d4677511e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.008
+    second: {fileID: 2100000, guid: 318f639374532ae4bbe99ef55b7f5e9f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.009
+    second: {fileID: 2100000, guid: 062a221331f8cbf4e8a392c595281efa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.010
+    second: {fileID: 2100000, guid: 439830f7fc53cb64489245a1f847520c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.011
+    second: {fileID: 2100000, guid: ff31777e9d0e2ea4c91a93ed0ac46994, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.012
+    second: {fileID: 2100000, guid: d8da23e913fda7e4c8f0d97ef68e4efc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.013
+    second: {fileID: 2100000, guid: cfa5c4f080696f34a87b1e7b34888a7a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.014
+    second: {fileID: 2100000, guid: c9c37912680a5454c9300b6c9e77aac6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.015
+    second: {fileID: 2100000, guid: a9dad323f2b8cc5489898dabbe0dafe1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.016
+    second: {fileID: 2100000, guid: 5391c4f238505e243a7b4e4d0123446b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.017
+    second: {fileID: 2100000, guid: 4bc0d6a3a7154d74abaf443a8d133e66, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.018
+    second: {fileID: 2100000, guid: 5415a5aaef48e3f43a898454b0b5eaad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.019
+    second: {fileID: 2100000, guid: d905ae507ab6ff745989e792a85e3ca0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.020
+    second: {fileID: 2100000, guid: 909a34cc5c12cb24bba8a2ddfd0ee07b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.021
+    second: {fileID: 2100000, guid: 8e89459135fde5447a5ee312a025846e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.022
+    second: {fileID: 2100000, guid: 6f77331a69b588541a88dd0dc56b0b77, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.023
+    second: {fileID: 2100000, guid: 9100d80e9c8c4f44abeb3e9d6abfd235, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.024
+    second: {fileID: 2100000, guid: 84c97a9af4ec62e41a4064ba086b8389, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.025
+    second: {fileID: 2100000, guid: e8e77324a1a9de14b8660a4441957479, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.026
+    second: {fileID: 2100000, guid: 3e8f1683d7cb5c54591ae66d152fc848, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.027
+    second: {fileID: 2100000, guid: be00e8663ac46884b8a08a834c9744a1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.028
+    second: {fileID: 2100000, guid: 42613bd3ecfaad24c8f0de38bca47d09, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.029
+    second: {fileID: 2100000, guid: 13cda4ccbfda85048b9b3dd23d0d5090, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.030
+    second: {fileID: 2100000, guid: 0acac35de1529c9458a59b346c33db0a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.031
+    second: {fileID: 2100000, guid: f4209ac5d30646443b10fa5464a82148, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.032
+    second: {fileID: 2100000, guid: 2fbafbf22ce75b348a35bdc801867105, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.033
+    second: {fileID: 2100000, guid: 9feead9d7f5e6ec4c95a3c2414451a90, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.034
+    second: {fileID: 2100000, guid: 60c836409ef098b41876c95aa71aaffe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.035
+    second: {fileID: 2100000, guid: 15800535011c2ad46a607866cfe71a94, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.036
+    second: {fileID: 2100000, guid: 0b721ab3965905542b89a0aa9ee139a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.037
+    second: {fileID: 2100000, guid: eb3fb59d7fba55241b6814191d85d81e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.038
+    second: {fileID: 2100000, guid: 4446c4709f77c1f4b916cd6cec1aacba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.039
+    second: {fileID: 2100000, guid: c9ef6f73b2f8e414ba4695148ff15be2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.040
+    second: {fileID: 2100000, guid: ab532c209f1505f4a8b9818457c2dbc1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.041
+    second: {fileID: 2100000, guid: 6529e51b163dd054c8f8e4d340e901fd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.042
+    second: {fileID: 2100000, guid: d20cd4a65687f324ca9948fe4a0456ee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.043
+    second: {fileID: 2100000, guid: 07a1f11c430e857458badc8b02368689, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.044
+    second: {fileID: 2100000, guid: f0876692f2c64c94e8df619e201dc80b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.045
+    second: {fileID: 2100000, guid: 24a0d9b7c989374499ed7ff7cdf5f9de, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.046
+    second: {fileID: 2100000, guid: b4172e1616bbf5445b0867ebf0040b7f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light Metall.047
+    second: {fileID: 2100000, guid: 0ded929049e553248acd4a2905280b47, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LightWood
+    second: {fileID: 2100000, guid: e199c76346c2a7049bec3b5b7bb4ef6d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WoodenSlits
+    second: {fileID: 2100000, guid: b0821843972fb284f86a383f56829045, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
