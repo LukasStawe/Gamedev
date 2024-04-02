@@ -80,4 +80,9 @@ public class LootChest : LootableScript
             this.GetComponent<BoxCollider>().enabled = false;
         }
     }
+
+    private IEnumerator MoveChest(float degree)
+    {
+
+    }
 }
