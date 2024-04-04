@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The class that manages the entirety of the Journal
+/// </summary>
 public class JournalManager : MonoBehaviour
 {
     #region Singleton
@@ -19,28 +22,45 @@ public class JournalManager : MonoBehaviour
     }
 
     #endregion
-
-    public struct journalEntry
+    
+    /// <summary>
+    /// The structurce for a Journal Entry, consisting of an ID and the Entry itself.
+    /// </summary>
+    public struct JournalEntry
     {
         public int entryID;
         public string entryText;
+
+        //TODO Add a type (Enum) to distinguish between important (Quest) and non-important (Lore) Entries.
     }
 
-    public List<journalEntry> journalEntries = new();
+    //
+    public List<JournalEntry> journalEntries = new();
 
+    /// <summary>
+    /// When the gameObject is enabled the AddJournalEntry is added to the Action OnJournalEntryEvent.
+    /// </summary>
     private void OnEnable()
     {
         Actions.OnJournalEntryEvent += AddJournalEntry;
     }
 
+    /// <summary>
+    /// When the gameObject is disabled the AddJournalEntry is removed from the Action OnJournalEntryEvent.
+    /// </summary>
     private void OnDisable()
     {
         Actions.OnJournalEntryEvent -= AddJournalEntry;
     }
 
+    /// <summary>
+    /// Goes through the entire Lists and checks if the Entry that is about to be added is already in the List. If yes nothing gets added. If not it gets the text assigned to the ID, creates a new journalEntry 
+    /// with both and adds it to the List.
+    /// </summary>
+    /// <param name="journalID">The ID of the Journal Entry that is going to be added to the Journal List</param>
     public void AddJournalEntry(int journalID)
     {
-        foreach (journalEntry existingEntry in journalEntries) 
+        foreach (JournalEntry existingEntry in journalEntries) 
         {
             Debug.Log(existingEntry.entryID);
             if (existingEntry.entryID == journalID)
@@ -57,7 +77,7 @@ public class JournalManager : MonoBehaviour
             return;
         }
 
-        journalEntry entry;
+        JournalEntry entry;
         entry.entryID = journalID;
         entry.entryText = newJournalEntry;
 
@@ -66,6 +86,11 @@ public class JournalManager : MonoBehaviour
            
     }
 
+    /// <summary>
+    /// Returns the Text assigned to the ID of a journal entry.
+    /// </summary>
+    /// <param name="journalID"> The ID of the new Journal Entry </param>
+    /// <returns> The text assigned to the ID of the new Entry </returns>
     private string GetJournalEntry(int journalID)
     {
         switch (journalID)
