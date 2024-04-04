@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     public EnemyIdleState enemyIdleState;
     public ChaseState chaseState;
     
-    public bool isPlayerInRange;
+    public bool isPlayerFound = false;
     public bool isPlayerInAttackRange;
     public bool isPlayerInChaseRange;
     public bool isEnemyAttacked;
@@ -26,7 +26,11 @@ public class Enemy : MonoBehaviour
 
     public float nextAttackTime = 0f;
 
-    private float distanceToPlayer;
+    public float detectionRadius;
+
+    public float detectionAngle;
+
+    public Vector3 lastPlayerPosition;
 
     [SerializeField] GameObject bag;
 
@@ -38,7 +42,7 @@ public class Enemy : MonoBehaviour
         chaseState = new ChaseState(this);
         attackState = new AttackingState(this);
 
-        stateMachine.AddTransition(enemyIdleState, attackState, () => distanceToPlayer <= enemy.detectionRadius == true);
+        stateMachine.AddTransition(enemyIdleState, attackState, () => isPlayerFound == true);
 
         stateMachine.AddTransition(attackState, enemyIdleState, () => distanceToPlayer > enemy.chaseRange == true);
 
@@ -53,36 +57,14 @@ public class Enemy : MonoBehaviour
         maxHealth = enemy.maxHealth;
         currentHealth = maxHealth;
         stateMachine.SetState(enemyIdleState);
+        detectionAngle = enemy.detectionAngle;
+        detectionRadius = enemy.detectionRadius;
     }
 
     // Update is called once per frame
     void Update()
     {
-        stateMachine.Tick();
-
-        // Calculate the distance between the enemy and the player
-        distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-        // Check if the player is within the detection radius
-        if (distanceToPlayer <= enemy.detectionRadius)
-        {
-            isPlayerInRange = true;
-        }
-        else
-        {
-            isPlayerInRange = false;
-        }
-        
-        // Check if the player is within the attack radius
-        if (distanceToPlayer <= enemy.attackRange)
-        {
-            isPlayerInAttackRange = true;
-        }
-        else
-        {
-            isPlayerInAttackRange = false;
-        }
-                
+        stateMachine.Tick();                        
     }
 
     void FixedUpdate()

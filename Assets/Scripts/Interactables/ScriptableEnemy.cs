@@ -18,6 +18,8 @@ public class ScriptableEnemy : ScriptableObject
 
     public float detectionRadius;
 
+    public float detectionAngle;
+
     public float chaseRange;
 
     public int armor;

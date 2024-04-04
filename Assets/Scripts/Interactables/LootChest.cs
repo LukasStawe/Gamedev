@@ -28,9 +28,9 @@ public class LootChest : LootableScript
         }
     }
 
-    /*
-     * Copys the Loot from the ScriptableChest to the actual Item (to not delete it from the SO) 
-     */
+    /// <summary>
+    /// Copies the Loot from the ScriptableChest to the actual Item (to not delete it from the SO) 
+    /// </summary>
     private void Start()
     {
         foreach(ScriptableItem item in chest.Loot)
@@ -39,10 +39,9 @@ public class LootChest : LootableScript
         }
     }
 
-
-    /*
-     * Loots the Chest one Item at a time if its unlocked 
-     */
+    /// <summary>
+    /// Checkes if the chest is Locked first. If yes, tries to unlock it and returns. If not, tells the UI for looting to be created.
+    /// </summary>
     public override void Interact()
     {
         if (isLocked)
@@ -58,9 +57,9 @@ public class LootChest : LootableScript
         }
     }
 
-    /*
-     * Unlocks the Chest if it was locked and the player has the Required Key (from ScriptableChest)
-     */
+    /// <summary>
+    /// Unlocks the Chest if it was locked and the player has the Required Key (from ScriptableChest)
+    /// </summary>
     public void Unlock()
     {
         if (playerInventory.keys.Contains(chest.requiredKey))
@@ -81,8 +80,13 @@ public class LootChest : LootableScript
         }
     }
 
+    /// <summary>
+    /// Visualizes the opening and closing of the chest by rotating the upper part of the Chest around a point on the edge.
+    /// </summary>
+    /// <param name="degree"> The degree by which the upper part of the chest should rotate </param>
+    /// <returns> Waits a frame after a rotating-step </returns>
     private IEnumerator MoveChest(float degree)
     {
-
+        //TODO
     }
 }
