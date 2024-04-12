@@ -85,8 +85,8 @@ public class LootChest : LootableScript
     /// </summary>
     /// <param name="degree"> The degree by which the upper part of the chest should rotate </param>
     /// <returns> Waits a frame after a rotating-step </returns>
-    private IEnumerator MoveChest(float degree)
-    {
-        //TODO
-    }
+    //private IEnumerator MoveChest(float degree)
+    //{
+    //    //TODO
+    //}
 }

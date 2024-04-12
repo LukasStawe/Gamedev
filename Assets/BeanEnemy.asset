@@ -17,12 +17,12 @@ MonoBehaviour:
   attackRange: 1.5
   attackSpeed: 1
   maxHealth: 50
-  movementSpeed: 2
-  detectionRadius: 10
+  movementSpeed: 3
+  detectionRadius: 35
+  detectionAngle: 45
   chaseRange: 15
   armor: 4
   addsJournalEntry: 1
   journalID: 11
   Loot:
-  - {fileID: 11400000, guid: 71f641b78dd62aa4295db2f5346c36f0, type: 2}
   - {fileID: 11400000, guid: c99ddaad70705fa4ba1856125b861e58, type: 2}

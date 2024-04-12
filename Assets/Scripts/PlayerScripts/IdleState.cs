@@ -1,3 +1,4 @@
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class IdleState : IState
@@ -10,6 +11,8 @@ public class IdleState : IState
     Vector3 camRight;
     bool isGrounded;
     bool isCrouched = false;
+
+    float soundStrength = 4f;
 
     float xRotation = 0f;
     float yRoation = 0f;
@@ -217,7 +220,27 @@ public class IdleState : IState
         move += camUp * z;
         move += camRight * x;
 
-        playerScript.controller.Move(move * playerScript.speed * Time.deltaTime);        
+        playerScript.controller.Move(move * playerScript.speed * Time.deltaTime);
+
+        PlaySound();
+    }
+
+    private void PlaySound()
+    {
+        //TODO Maybe put floortype into the equation        
+        float soundDistance = soundStrength * playerScript.controller.velocity.magnitude * (isCrouched ? 0.1f : 1f);
+
+        Collider[] enemies = Physics.OverlapSphere(playerScript.transform.position, soundDistance/2);
+        if (enemies.Length > 0)
+        {
+            foreach (Collider collider in enemies)
+            {
+                if (collider.CompareTag("Enemy"))
+                {
+                    collider.GetComponent<Enemy>().enemyIdleState.HearPlayer(playerScript.transform.position);
+                }    
+            }
+        }
     }
 
     public void Jump()

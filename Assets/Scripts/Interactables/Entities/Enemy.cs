@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -14,12 +15,18 @@ public class Enemy : MonoBehaviour
     public bool isPlayerFound = false;
     public bool isPlayerInAttackRange;
     public bool isPlayerInChaseRange;
-    public bool isEnemyAttacked;
+    public bool isEnemyAttacked;    
     #endregion
 
     public ScriptableEnemy enemy;
 
     public Transform player;
+
+    public NavMeshAgent agent;
+
+    public Vector3 idlePosition;
+
+    public Transform eyes;
 
     int maxHealth;
     int currentHealth;
@@ -44,7 +51,7 @@ public class Enemy : MonoBehaviour
 
         stateMachine.AddTransition(enemyIdleState, attackState, () => isPlayerFound == true);
 
-        stateMachine.AddTransition(attackState, enemyIdleState, () => distanceToPlayer > enemy.chaseRange == true);
+        stateMachine.AddTransition(attackState, enemyIdleState, () => isPlayerFound == false);
 
         stateMachine.AddTransition(enemyIdleState, chaseState, () => isEnemyAttacked == true);
 
@@ -59,6 +66,8 @@ public class Enemy : MonoBehaviour
         stateMachine.SetState(enemyIdleState);
         detectionAngle = enemy.detectionAngle;
         detectionRadius = enemy.detectionRadius;
+        agent.speed = enemy.movementSpeed;
+        agent.stoppingDistance = enemy.attackRange;
     }
 
     // Update is called once per frame
@@ -91,7 +100,7 @@ public class Enemy : MonoBehaviour
             actualDamage = damage - enemy.armor;
 
         }
-
+        
         currentHealth -= actualDamage;
 
         Debug.Log("Enemy hit for " + actualDamage + " damage!");
@@ -104,6 +113,11 @@ public class Enemy : MonoBehaviour
         {
             Die();
         }
+    }
+
+    public void HearPlayer(Vector3 soundLocation)
+    {
+        Debug.Log("Hear Player");
     }
 
     /*
@@ -150,5 +164,19 @@ public class Enemy : MonoBehaviour
         clonedLoot.name = gameObject.name + " Loot";
         Debug.Log("Loot spawned at " + clonedLoot.gameObject.transform.position);
 
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position, detectionRadius);
+
+        Vector3 direction = Quaternion.AngleAxis(detectionAngle, transform.up) * transform.forward;
+        Vector3 lineEnd = transform.position + direction * detectionRadius;
+        Gizmos.DrawRay(transform.position, lineEnd);
+
+        direction = Quaternion.AngleAxis(-detectionAngle, transform.up) * transform.forward;
+        lineEnd = transform.position + direction * detectionRadius;
+        Gizmos.DrawRay(transform.position, lineEnd);
     }
 }

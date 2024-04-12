@@ -5,14 +5,12 @@ using UnityEngine;
 public class ConsumablePickup : Items
 {
     public ScriptableConsumable consumable;
-    public PlayerScript player;
 
     public override string interactTextToDisplay => "Press E to pick up " + consumable.name + ". \n" +
                                                     "Press F to eat " + consumable.name + ".";
 
     private void Awake()
     {
-        player = PlayerScript.Instance;
     }
 
     public override void Interact()
@@ -39,6 +37,7 @@ public class ConsumablePickup : Items
 
     public void Eat()
     {
+        PlayerScript player = PlayerScript.Instance;
         if (player.currentHealth + consumable.restoredHealth > player.maxHealth)
         {
             player.currentHealth = player.maxHealth;

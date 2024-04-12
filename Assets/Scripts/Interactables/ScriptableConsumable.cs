@@ -45,8 +45,8 @@ public class ScriptableConsumable : ScriptableItem
     public override void Drop()
     {
         base.Drop();
-        
-        itemPrefab.GetComponent<ConsumablePickup>().player = PlayerScript.Instance;
+        //PlayerScript player = PlayerScript.Instance;
+        //itemPrefab.GetComponent<ConsumablePickup>().player = PlayerScript.Instance;
     }
 }
 

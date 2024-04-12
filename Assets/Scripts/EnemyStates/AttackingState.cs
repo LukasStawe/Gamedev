@@ -23,10 +23,10 @@ public class AttackingState : IState
 
     public void Tick()
     {
-        if (enemyScript.isPlayerInRange && !enemyScript.isPlayerInAttackRange)
-        {
-            Move();
-        }
+        //if (enemyScript.isPlayerInRange && !enemyScript.isPlayerInAttackRange)
+        //{
+        //    Move();
+        //}
 
         if (Time.time >= enemyScript.nextAttackTime)
         {

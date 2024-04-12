@@ -10,6 +10,8 @@ TagManager:
   - Page
   - JournalEntry
   - canPickUp
+  - player
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -28,7 +30,7 @@ TagManager:
   - Destructable
   - Container
   - Pickupable
-  - 
+  - Trigger
   - 
   - 
   - 

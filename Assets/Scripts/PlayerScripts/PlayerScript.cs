@@ -51,6 +51,7 @@ public class PlayerScript : MonoBehaviour
     #region Combat-Variables
     public Transform attackPoint;
     public LayerMask enemyLayers;
+    public LayerMask enemies;
 
     public ScriptableWeapon weaponScript;
 
