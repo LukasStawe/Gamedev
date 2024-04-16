@@ -248,7 +248,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: LightWood
-    second: {fileID: 2100000, guid: e199c76346c2a7049bec3b5b7bb4ef6d, type: 2}
+    second: {fileID: -8367705006879899164, guid: c87a968d0a5f6da4d8df0b1159e049a0, type: 3}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

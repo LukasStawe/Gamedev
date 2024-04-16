@@ -17,10 +17,11 @@ public class ScriptableWeapon : ScriptableEquipment
     public float attackRange;
     public float attackSpeed;
 
-    public Vector3 equipPosition;
-    public Vector3 equipRotation;
-
     public WeaponType weapon;
+
+    public bool isRanged;
+
+    public bool isTwoHanded;
 
     /**
      * When the Weapon gets clicked on in the Inventory it gets equipped.

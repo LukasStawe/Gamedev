@@ -75,8 +75,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5, y: 3, z: 0.12384224}
-  m_Center: {x: 0.75, y: 1.5, z: -0.011429787}
+  m_Size: {x: 1.5000002, y: 3.0000002, z: 0.38282394}
+  m_Center: {x: 0.7500001, y: 1.5000001, z: -0.009578705}
 --- !u!114 &5753783580096653060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,10 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de0c00daefd41042a2efbd322c44b54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorAnimation: {fileID: 7674244816886925286}
   isLocked: 0
   requiredKey: {fileID: 0}
-  inventory: {fileID: 0}
 --- !u!1001 &1609767504401024471
 PrefabInstance:
   m_ObjectHideFlags: 0

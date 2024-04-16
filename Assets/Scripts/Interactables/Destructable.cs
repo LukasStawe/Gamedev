@@ -34,6 +34,7 @@ public class Destructable : MonoBehaviour
     public void TakeDamage()
     {
         health--;
+        gameObject.GetComponent<Rigidbody>().AddForce(PlayerScript.Instance.transform.forward * 4f, ForceMode.Impulse);
                 
         //Destroy
         if (health <= 0)

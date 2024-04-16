@@ -1,4 +1,6 @@
+using System.Collections;
 using Unity.Burst.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class IdleState : IState
@@ -25,17 +27,22 @@ public class IdleState : IState
     private float playerHeight = 2.3f;
 
     [SerializeField]
-    private float throwForce = 250.0f;
+    private float throwForce = 20.0f;
+
+    private SkinnedMeshRenderer bowString;
+    private SkinnedMeshRenderer bowHandle;
 
     public IdleState (PlayerScript playerScript)
     {
         this.playerScript = playerScript;
     }
-    
+
     public void OnEnter()
     {
         usables = LayerMask.GetMask("Items", "Readables", "Interactables", "Consumables", "Container");
         playerScript.crossHair.gameObject.SetActive(true);
+        bowString = playerScript.bowString;
+        bowHandle = playerScript.bowHandle;
     }
 
     public void OnExit()
@@ -48,20 +55,20 @@ public class IdleState : IState
         #region Movement-Script
         GroundCheck();
 
-        if (velocity.y < 0)
-        {
-            velocity.y = playerScript.gravity * 0.5f;
-        }
+        //if (velocity.y < 0)
+        //{
+        //    velocity.y = playerScript.gravity * 0.5f;
+        //}
 
-        if (!isGrounded && Physics.Raycast(playerScript.playerBody.position, Vector3.up, playerHeight))
-        {
-            velocity.y = -2f;
-        }
+        //if (!isGrounded && Physics.Raycast(playerScript.playerBody.position, Vector3.up, playerHeight))
+        //{
+        //    velocity.y = -2f;
+        //}
 
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-        {
-            Move();
-        }
+        //if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        //{
+        //    Move();
+        //}
 
         velocity.y += playerScript.gravity * Time.deltaTime;
 
@@ -76,7 +83,8 @@ public class IdleState : IState
             }
         }
 
-        playerScript.controller.Move(velocity * Time.deltaTime);
+        //playerScript.controller.Move(velocity * Time.deltaTime);
+        //playerScript.rigidBody.velocity = velocity * Time.deltaTime;
 
         if (Input.GetButtonDown("Crouch"))
         {
@@ -92,11 +100,11 @@ public class IdleState : IState
 
         if (Input.GetButtonDown("Sprint") && !isCrouched)
         {
-            playerScript.speed += 3f;
+            playerScript.speed += 2f;
         }
         if (Input.GetButtonUp("Sprint") && !isCrouched)
         {
-            playerScript.speed = 8f;
+            playerScript.speed = 6f;
         }
 
         #endregion
@@ -107,14 +115,25 @@ public class IdleState : IState
 
             if (Input.GetButtonDown("Attack") && playerScript.weaponEquipped && !playerScript.isHolding)
             {
-                Attack();
-                playerScript.nextAttackTime = Time.time + 1f / playerScript.weaponScript.attackSpeed;
+                if (playerScript.weaponScript.weapon == ScriptableWeapon.WeaponType.Bow) 
+                {
+                    playerScript.DrawBow();
+                } else
+                {
+                    Attack();
+                    playerScript.nextAttackTime = Time.time + 1f / playerScript.weaponScript.attackSpeed;
+                }
             }
 
         }
+
+        if (Input.GetButtonUp("Attack") && playerScript.weaponEquipped)
+        {
+            Shoot();
+        }
         #endregion
 
-        #region Interact-Script
+            #region Interact-Script
         if (!playerScript.isHolding)
         {
             if (Input.GetButtonDown("Interact"))
@@ -177,23 +196,26 @@ public class IdleState : IState
             }
         }
         #endregion
-        
+
         #region Mouse-Script
         if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
         {
             LookAround();
         }
-#endregion
+        #endregion
     }
 
     public void FixedTick()
     {
-        
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        {
+            Move();
+        }
     }
 
     private void GroundCheck()
     {
-        if (Physics.Raycast(playerScript.controller.transform.position, Vector3.down, playerScript.groundDistance))
+        if (Physics.Raycast(playerScript.transform.position, Vector3.down, playerScript.groundDistance))
         {
             isGrounded = true;
         }
@@ -220,7 +242,8 @@ public class IdleState : IState
         move += camUp * z;
         move += camRight * x;
 
-        playerScript.controller.Move(move * playerScript.speed * Time.deltaTime);
+        //playerScript.controller.Move(move * playerScript.speed * Time.deltaTime);
+        playerScript.rigidBody.MovePosition(playerScript.transform.position + move * playerScript.speed * Time.deltaTime);
 
         PlaySound();
     }
@@ -228,7 +251,8 @@ public class IdleState : IState
     private void PlaySound()
     {
         //TODO Maybe put floortype into the equation        
-        float soundDistance = soundStrength * playerScript.controller.velocity.magnitude * (isCrouched ? 0.1f : 1f);
+        //float soundDistance = soundStrength * playerScript.controller.velocity.magnitude * (isCrouched ? 0.1f : 1f);
+        float soundDistance = soundStrength * playerScript.rigidBody.velocity.magnitude * (isCrouched ? 0.1f : 1f);
 
         Collider[] enemies = Physics.OverlapSphere(playerScript.transform.position, soundDistance/2);
         if (enemies.Length > 0)
@@ -245,7 +269,8 @@ public class IdleState : IState
 
     public void Jump()
     {
-        velocity.y = Mathf.Sqrt(playerScript.jumpHeight * -1f * playerScript.gravity);
+        //velocity.y = Mathf.Sqrt(playerScript.jumpHeight * -1f * playerScript.gravity);
+        playerScript.rigidBody.AddForce(Vector3.up * playerScript.jumpHeight, ForceMode.Impulse);
     }
 
     private void Attack()
@@ -267,6 +292,16 @@ public class IdleState : IState
                 destructable.GetComponent<Destructable>().TakeDamage();
             }
         }
+    }
+
+    private void Shoot()
+    {
+        if (bowString.GetBlendShapeWeight(0) >= 75)
+        {
+            //TODO Shoot an arrow with speed and damage based on drawprogress
+        }
+        bowString.SetBlendShapeWeight(0, 0);
+        bowHandle.SetBlendShapeWeight(0, 0);
     }
 
     public void TakeDamage(int damage)
@@ -443,7 +478,7 @@ public class IdleState : IState
         heldObjRig.constraints = RigidbodyConstraints.None;
 
         float speed = Input.GetAxis("Vertical") <= 0 ? 1f : 2.5f;
-        heldObjRig.AddForce(playerScript.gameObject.transform.forward * throwForce * speed);
+        heldObjRig.AddForce(playerScript.gameObject.transform.forward * throwForce, ForceMode.Impulse);
 
         heldObj.transform.parent = null;
         heldObj = null;
@@ -456,9 +491,9 @@ public class IdleState : IState
     {
         isCrouched = true;
 
-        playerScript.speed = 5f;
+        playerScript.speed = 4f;
 
-        playerScript.controller.height *= 0.5f;
+        //playerScript.controller.height *= 0.5f;
         playerScript.playerCollider.enabled = false;
         playerScript.crouchCollider.enabled = true;
     }
@@ -467,9 +502,9 @@ public class IdleState : IState
     {
         isCrouched = false;
 
-        playerScript.speed = 8f;
+        playerScript.speed = 6f;
 
-        playerScript.controller.height *= 2f;
+        //playerScript.controller.height *= 2f;
         playerScript.playerCollider.enabled = true;
         playerScript.crouchCollider.enabled = false;
     }

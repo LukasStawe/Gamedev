@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,7 +31,8 @@ public class PlayerScript : MonoBehaviour
     #endregion
 
     #region Movement-variables
-    public CharacterController controller;
+    //public CharacterController controller;
+    public Rigidbody rigidBody;
 
     public float speed = 8f;
     public float gravity = -9.8f;
@@ -63,6 +65,12 @@ public class PlayerScript : MonoBehaviour
     public HealthBar healthBar;
 
     public bool weaponEquipped;
+
+    public SkinnedMeshRenderer bowString;
+    public SkinnedMeshRenderer bowHandle;
+
+    public GameObject arrowPrefab;
+    public Transform arrowSpawn;
     #endregion
 
     #region Mouse-Variables
@@ -144,5 +152,19 @@ public class PlayerScript : MonoBehaviour
         stateMachine.FixedTick();
     }
 
+    public void DrawBow()
+    {
+        StartCoroutine(DrawRangedWeapon());
+    }
+
+    private IEnumerator DrawRangedWeapon()
+    {
+        while (bowString.GetBlendShapeWeight(0) <= 100f && bowHandle.GetBlendShapeWeight(0) <= 100)
+        {
+            bowString.SetBlendShapeWeight(0, bowString.GetBlendShapeWeight(0) + 25 * Time.deltaTime);
+            bowHandle.SetBlendShapeWeight(0, bowHandle.GetBlendShapeWeight(0) + 25 * Time.deltaTime);
+            yield return null;
+        }
+    }
 }
 

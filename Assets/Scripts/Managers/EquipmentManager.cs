@@ -34,6 +34,8 @@ public class EquipmentManager : MonoBehaviour
     private GameObject sword;
     [SerializeField]
     private GameObject axe;
+    [SerializeField]
+    private GameObject bow;
 
     /**
      * Instantiates Inventory and Player Singletons.
@@ -128,6 +130,7 @@ public class EquipmentManager : MonoBehaviour
             {
                 sword.gameObject.SetActive(false);
                 axe.gameObject.SetActive(false);
+                bow.gameObject.SetActive(false);
 
                 player.weaponEquipped = false;
             }
@@ -150,7 +153,8 @@ public class EquipmentManager : MonoBehaviour
                 return; 
             case 2: break; 
             case 3: break; 
-            case 4: break;
+            case 4: bow.gameObject.SetActive(true);
+                break;
                 }
     }
 
@@ -166,7 +170,8 @@ public class EquipmentManager : MonoBehaviour
                 return;
             case 2: break;
             case 3: break;
-            case 4: break;
+            case 4: bow.gameObject.SetActive(false); 
+                break;
         }
     }
 

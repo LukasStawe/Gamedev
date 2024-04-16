@@ -83,7 +83,8 @@ public class HoldingState : IState
         }
 
         velocity.y += playerScript.gravity * Time.deltaTime;
-        playerScript.controller.Move(velocity * Time.deltaTime);
+        //playerScript.controller.Move(velocity * Time.deltaTime);
+        playerScript.rigidBody.velocity = velocity * Time.deltaTime;
 
         #endregion
 
@@ -108,9 +109,11 @@ public class HoldingState : IState
         moving = x + z;
         playerScript.playerAnimator.SetFloat("Moving", Mathf.Abs(moving));
 
-        Vector3 move = playerScript.controller.transform.right * x + playerScript.controller.transform.forward * z;
+        //Vector3 move = playerScript.controller.transform.right * x + playerScript.controller.transform.forward * z;
+        Vector3 move = playerScript.rigidBody.transform.right * x + playerScript.rigidBody.transform.forward * z;
 
-        playerScript.controller.Move(move * playerScript.speed * Time.deltaTime);
+        //playerScript.controller.Move(move * playerScript.speed * Time.deltaTime);
+        playerScript.rigidBody.velocity = move * playerScript.speed * Time.deltaTime;
     }
 
     public void LookAround()
