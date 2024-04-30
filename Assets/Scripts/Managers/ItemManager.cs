@@ -16,6 +16,7 @@ public class ItemManager : MonoBehaviour
 
     [SerializedDictionary("Name", "Object")]
     public SerializedDictionary<string, GameObject> objectList;
+    public SerializedDictionary<string, int> objectMaxStackValues;
 
     /// <summary>
     /// 

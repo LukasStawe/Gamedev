@@ -1,15 +1,16 @@
 using UnityEngine;
-using static UnityEditor.Progress;
 
 
 public class ScriptableItem : ScriptableObject
 {
-
     new public string name = "New Item";
     [TextArea]
     public string description;
     public Sprite icon = null;
     public GameObject itemPrefab;
+
+    public bool isStackable = false;
+    public int maxStackSize = 1;
 
     public virtual void Use()
     {

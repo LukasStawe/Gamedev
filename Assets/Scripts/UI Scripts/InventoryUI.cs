@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using TMPro;
-using UnityEditor.Search;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class InventoryUI : MonoBehaviour
 {
@@ -76,6 +72,21 @@ public class InventoryUI : MonoBehaviour
             }
         }
     }
+
+    //void UpdateUI()
+    //{
+    //    for (int i = 0; i < slots.Length; i++)
+    //    {
+    //        if (i < inventory.items.Count)
+    //        {
+    //            slots[i].AddItem(inventory.items[i]);
+    //        }
+    //        else
+    //        {
+    //            slots[i].ClearSlot();
+    //        }
+    //    }
+    //}
 
     void UpdateUI(ScriptableEquipment newItem, ScriptableEquipment oldItem)
     {

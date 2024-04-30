@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using AYellowpaper.SerializedCollections;
+using TMPro;
 using UnityEngine;
 
 /**
@@ -29,11 +31,36 @@ public class Inventory : MonoBehaviour
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
 
+    public delegate void OnMoneyChanged(int value, int change);
+    public event OnMoneyChanged onMoneyChangedCallback;
+
     public int space = 24;
 
-    public List<ScriptableItem> items = new List<ScriptableItem>();
-
+    //public List<ScriptableItem> items = new List<ScriptableItem>();
+    public List<Item> items = new List<Item>();
+    
     public List<ScriptableItem> keys = new List<ScriptableItem>();
+
+    public int money = 0;
+
+    public Ammo equippedAmmo;
+
+
+    /// <summary>
+    /// When the gameObject is enabled the AddMoney is added to the Action OnValuableEvent.
+    /// </summary>
+    private void OnEnable()
+    {
+        Actions.OnMoneyChangedEvent += AddMoney;
+    }
+
+    /// <summary>
+    /// When the gameObject is disabled the AddMoney is removed from the Action OnValuableEvent.
+    /// </summary>
+    private void OnDisable()
+    {
+        Actions.OnMoneyChangedEvent -= AddMoney;
+    }
 
     /**
      * @param item: The item that was picked up and is now added to the Inventory.
@@ -55,7 +82,21 @@ public class Inventory : MonoBehaviour
 
         } else
         {
-            items.Add(item);
+            Item newItem;
+            int index = SearchForSO(item);
+            if (item.isStackable && index != -1)
+            {
+                newItem.item = item;
+                newItem.amount = items[index].amount + 1;
+                items[index] = newItem;
+                Debug.Log(items[index].amount);
+               
+            } else
+            {
+                newItem.item = item;
+                newItem.amount = 1;
+                items.Add(newItem);
+            }
         }        
 
         if (onItemChangedCallback!= null) { onItemChangedCallback.Invoke(); }        
@@ -70,10 +111,58 @@ public class Inventory : MonoBehaviour
      */
     public void Remove(ScriptableItem item)
     {
-        items.Remove(item);
+        int index = SearchForSO(item);
+        if (items[index].amount == 1)
+        {
+            items.Remove(items[index]);
+        } else
+        {
+            Item newItem;
+            newItem.item = item;
+            newItem.amount = items[index].amount - 1;
+            items[index] = newItem;
+            Debug.Log(items[index].amount);
+        }
 
         if (onItemChangedCallback != null) { onItemChangedCallback.Invoke(); }
     }
 
+    /// <summary>
+    /// Adds an amount (positive or negative) to the players money.
+    /// </summary>
+    /// <param name="amount">The amount to be added to the money</param>
+    public void AddMoney(int amount)
+    {
+        money += amount;
+        if (onMoneyChangedCallback != null) { onMoneyChangedCallback.Invoke(money, amount); }
+    }
 
+    public int SearchForSO(ScriptableItem item)
+    {
+        foreach (Item itemStruct in items)
+        {
+            if (itemStruct.item == item)
+            {
+                return items.IndexOf(itemStruct);
+            }
+        }
+        return -1;
+    }
 }
+public struct Ammo
+{
+    public AmmoType type;
+    public int amount;
+}
+
+public enum AmmoType
+{
+    Arrow, FireArrow, RopeArrow, PoisonArrow, Bolt
+}
+
+public struct Item
+{
+    public ScriptableItem item;
+    public int amount;
+}
+

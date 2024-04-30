@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using OpenCover.Framework.Model;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New DialogueTree", menuName = "Dialogue/DialogueTree")]

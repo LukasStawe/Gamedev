@@ -25,6 +25,8 @@ public class TriggerButton : ButtonParent
         if (other.CompareTag("Player") || other.CompareTag("Enemy") || isRunning) return;
 
         StartCoroutine(MoveButton());
+
+        connectedObject.Move();
     }
     private IEnumerator MoveButton()
     {

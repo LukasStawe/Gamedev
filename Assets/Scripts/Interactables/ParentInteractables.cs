@@ -5,5 +5,5 @@ using UnityEngine;
 public interface ParentInteractables
 {
     [property: SerializeField] public abstract string interactTextToDisplay { get; }
-    public void Interact();
+    public abstract void Interact();
 }

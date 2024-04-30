@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InventoryState : IState
 {
     public PlayerScript playerScript;
+
+    private PlayerInput playerInput;
 
     public InventoryState(PlayerScript playerScript)
     {
@@ -19,10 +22,13 @@ public class InventoryState : IState
     {
         Debug.Log("Entering Inventory State.");
         HideMouse();
+        playerInput = playerScript.GetComponent<PlayerInput>();
+        playerInput.actions.FindActionMap("UI").Enable();
     }
 
     public void OnExit()
     {
+        playerInput.actions.FindActionMap("UI").Disable();
     }
 
     public void Tick()

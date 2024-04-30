@@ -1,7 +1,5 @@
-using System.Collections;
-using Unity.Burst.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class IdleState : IState
 {
@@ -9,15 +7,15 @@ public class IdleState : IState
     public PlayerScript playerScript;
 
     Vector3 velocity;
-    Vector3 camUp;
-    Vector3 camRight;
+    //Vector3 camUp;
+    //Vector3 camRight;
     bool isGrounded;
     bool isCrouched = false;
 
     float soundStrength = 4f;
 
-    float xRotation = 0f;
-    float yRoation = 0f;
+    //float xRotation = 0f;
+    //float yRoation = 0f;
 
     LayerMask usables;
 
@@ -29,8 +27,7 @@ public class IdleState : IState
     [SerializeField]
     private float throwForce = 20.0f;
 
-    private SkinnedMeshRenderer bowString;
-    private SkinnedMeshRenderer bowHandle;
+    private PlayerInput playerInput;
 
     public IdleState (PlayerScript playerScript)
     {
@@ -39,64 +36,23 @@ public class IdleState : IState
 
     public void OnEnter()
     {
+        playerInput = playerScript.GetComponent<PlayerInput>();
+        playerInput.actions.FindActionMap("Player").Enable();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         usables = LayerMask.GetMask("Items", "Readables", "Interactables", "Consumables", "Container");
         playerScript.crossHair.gameObject.SetActive(true);
-        bowString = playerScript.bowString;
-        bowHandle = playerScript.bowHandle;
     }
 
     public void OnExit()
     {
         playerScript.crossHair.gameObject.SetActive(false);
+        playerInput.actions.FindActionMap("Player").Disable();
     }
 
     public void Tick()
     {
         #region Movement-Script
-        GroundCheck();
-
-        //if (velocity.y < 0)
-        //{
-        //    velocity.y = playerScript.gravity * 0.5f;
-        //}
-
-        //if (!isGrounded && Physics.Raycast(playerScript.playerBody.position, Vector3.up, playerHeight))
-        //{
-        //    velocity.y = -2f;
-        //}
-
-        //if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-        //{
-        //    Move();
-        //}
-
-        velocity.y += playerScript.gravity * Time.deltaTime;
-
-        if (isGrounded && Input.GetButtonDown("Jump"))
-        {
-            if (!isCrouched)
-            {
-                Jump();
-            } else if (!Physics.Raycast(playerScript.playerBody.position, Vector3.up, playerHeight))
-            {
-                StandUp();
-            }
-        }
-
-        //playerScript.controller.Move(velocity * Time.deltaTime);
-        //playerScript.rigidBody.velocity = velocity * Time.deltaTime;
-
-        if (Input.GetButtonDown("Crouch"))
-        {
-            if (!isCrouched)
-            {
-                Crouch();
-            }
-            else if (!Physics.Raycast(playerScript.playerBody.position, Vector3.up, playerHeight))
-            {
-                StandUp();
-            }            
-        }
 
         if (Input.GetButtonDown("Sprint") && !isCrouched)
         {
@@ -200,58 +156,56 @@ public class IdleState : IState
         #region Mouse-Script
         if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
         {
-            LookAround();
+            //LookAround();
         }
         #endregion
     }
 
     public void FixedTick()
     {
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-        {
-            Move();
-        }
+        //if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        //{
+        //    Move();
+        //}
     }
 
-    private void GroundCheck()
-    {
-        if (Physics.Raycast(playerScript.transform.position, Vector3.down, playerScript.groundDistance))
-        {
-            isGrounded = true;
-        }
-        else
-        {
-            isGrounded = false;
-        }
-    }
+    //private void GroundCheck()
+    //{
+    //    if (Physics.Raycast(playerScript.transform.position, Vector3.down, playerScript.groundDistance))
+    //    {
+    //        isGrounded = true;
+    //    }
+    //    else
+    //    {
+    //        isGrounded = false;
+    //    }
+    //}
 
-    public void Move()
-    {       
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");      
+    //public void Move()
+    //{       
+    //    float x = Input.GetAxis("Horizontal");
+    //    float z = Input.GetAxis("Vertical");      
 
-        camUp = playerScript.cam.transform.forward;
-        camUp.y = 0f;
-        camUp.Normalize();
+    //    camUp = playerScript.cam.transform.forward;
+    //    camUp.y = 0f;
+    //    camUp.Normalize();
 
-        camRight = playerScript.cam.transform.right;
-        camRight.y = 0f;
-        camRight.Normalize();
+    //    camRight = playerScript.cam.transform.right;
+    //    camRight.y = 0f;
+    //    camRight.Normalize();
 
-        Vector3 move = Vector3.zero;
-        move += camUp * z;
-        move += camRight * x;
+    //    Vector3 move = Vector3.zero;
+    //    move += camUp * z;
+    //    move += camRight * x;
 
-        //playerScript.controller.Move(move * playerScript.speed * Time.deltaTime);
-        playerScript.rigidBody.MovePosition(playerScript.transform.position + move * playerScript.speed * Time.deltaTime);
+    //    playerScript.rigidBody.MovePosition(playerScript.transform.position + move * playerScript.speed * Time.deltaTime);
 
-        PlaySound();
-    }
+    //    PlaySound();
+    //}
 
     private void PlaySound()
     {
-        //TODO Maybe put floortype into the equation        
-        //float soundDistance = soundStrength * playerScript.controller.velocity.magnitude * (isCrouched ? 0.1f : 1f);
+        //TODO Maybe put floortype into the equation
         float soundDistance = soundStrength * playerScript.rigidBody.velocity.magnitude * (isCrouched ? 0.1f : 1f);
 
         Collider[] enemies = Physics.OverlapSphere(playerScript.transform.position, soundDistance/2);
@@ -265,12 +219,6 @@ public class IdleState : IState
                 }    
             }
         }
-    }
-
-    public void Jump()
-    {
-        //velocity.y = Mathf.Sqrt(playerScript.jumpHeight * -1f * playerScript.gravity);
-        playerScript.rigidBody.AddForce(Vector3.up * playerScript.jumpHeight, ForceMode.Impulse);
     }
 
     private void Attack()
@@ -296,12 +244,7 @@ public class IdleState : IState
 
     private void Shoot()
     {
-        if (bowString.GetBlendShapeWeight(0) >= 75)
-        {
-            //TODO Shoot an arrow with speed and damage based on drawprogress
-        }
-        bowString.SetBlendShapeWeight(0, 0);
-        bowHandle.SetBlendShapeWeight(0, 0);
+        playerScript.ShootBow();        
     }
 
     public void TakeDamage(int damage)
@@ -344,23 +287,23 @@ public class IdleState : IState
         //Gizmos.DrawWireCube(playerScript.interactPoint.position, playerScript.interactVector * 2);
     }
 
-    public void LookAround()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+    //public void LookAround()
+    //{
+    //    Cursor.lockState = CursorLockMode.Locked;
+    //    Cursor.visible = false;
 
-        float mouseX = Input.GetAxis("Mouse X") * playerScript.mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * playerScript.mouseSensitivity;
+    //    float mouseX = Input.GetAxis("Mouse X") * playerScript.mouseSensitivity;
+    //    float mouseY = Input.GetAxis("Mouse Y") * playerScript.mouseSensitivity;
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -85f, 85f);
-        yRoation += mouseX;
+    //    xRotation -= mouseY;
+    //    xRotation = Mathf.Clamp(xRotation, -85f, 85f);
+    //    yRoation += mouseX;
         
-        playerScript.transform.localRotation = Quaternion.Euler(0, yRoation, 0);
-        //playerScript.playerBody.Rotate(Vector3.up * mouseX);
+    //    playerScript.transform.localRotation = Quaternion.Euler(0, yRoation, 0);
+    //    //playerScript.playerBody.Rotate(Vector3.up * mouseX);
 
-        playerScript.cam.transform.rotation = Quaternion.Euler(xRotation, yRoation, 0);
-    }
+    //    playerScript.cam.transform.rotation = Quaternion.Euler(xRotation, yRoation, 0);
+    //}
 
     public ParentInteractables GetInteractableObject()
     {
@@ -477,35 +420,12 @@ public class IdleState : IState
         heldObjRig.drag = 1;
         heldObjRig.constraints = RigidbodyConstraints.None;
 
-        float speed = Input.GetAxis("Vertical") <= 0 ? 1f : 2.5f;
-        heldObjRig.AddForce(playerScript.gameObject.transform.forward * throwForce, ForceMode.Impulse);
+        heldObjRig.AddForce(playerScript.cam.transform.forward * throwForce, ForceMode.Impulse);
 
         heldObj.transform.parent = null;
         heldObj = null;
         heldObjRig = null;
 
         playerScript.isHolding = false;
-    }
-
-    private void Crouch()
-    {
-        isCrouched = true;
-
-        playerScript.speed = 4f;
-
-        //playerScript.controller.height *= 0.5f;
-        playerScript.playerCollider.enabled = false;
-        playerScript.crouchCollider.enabled = true;
-    }
-
-    private void StandUp()
-    {
-        isCrouched = false;
-
-        playerScript.speed = 6f;
-
-        //playerScript.controller.height *= 2f;
-        playerScript.playerCollider.enabled = true;
-        playerScript.crouchCollider.enabled = false;
     }
 }

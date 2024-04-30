@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -46,8 +47,8 @@ public class PlayerScript : MonoBehaviour
 
     public Transform playerBody;
 
-    public BoxCollider playerCollider;
-    public BoxCollider crouchCollider;
+    public CapsuleCollider playerCollider;
+    public CapsuleCollider crouchCollider;
     #endregion
 
     #region Combat-Variables
@@ -63,14 +64,21 @@ public class PlayerScript : MonoBehaviour
     public int currentHealth;
 
     public HealthBar healthBar;
+    public DrawBar drawBar;
 
     public bool weaponEquipped;
 
     public SkinnedMeshRenderer bowString;
     public SkinnedMeshRenderer bowHandle;
+    public GameObject bow;
 
     public GameObject arrowPrefab;
     public Transform arrowSpawn;
+    private Coroutine drawArrow;
+    private Vector3 BOW_STANDARD_POSITION = new Vector3(-0.00318349455f, 0.0106449518f, 0.00206251559f);
+    private Quaternion BOW_STANDARD_ROTATION = new Quaternion(0.640023887f, 0.757192492f, 0.102656633f, 0.0805639997f);
+    private Vector3 BOW_SHOOT_POSITION = new Vector3(0.00456999987f, -0.00380000006f, 0.00461000018f);
+    private Quaternion BOW_SHOOT_ROTATION = new Quaternion(0.184796646f, 0.974401176f, 0.0186493937f, 0.126668304f);
     #endregion
 
     #region Mouse-Variables
@@ -108,6 +116,8 @@ public class PlayerScript : MonoBehaviour
     public LootUI lootUI;
     public DIalogueUI dialogueUI;
     public JournalUI journalUI;
+
+    public InputActionAsset actions;
     #endregion
 
 
@@ -152,17 +162,46 @@ public class PlayerScript : MonoBehaviour
         stateMachine.FixedTick();
     }
 
+    public bool AnyUIActive()
+    {
+        return readableUIScript.isShown || lootUI.isShown || dialogueUI.isShown || inventoryScript.isShown || journalUI.isShown;
+    }
+
     public void DrawBow()
     {
-        StartCoroutine(DrawRangedWeapon());
+        drawArrow = StartCoroutine(DrawRangedWeapon());
+        drawBar.Toggle(true);
+    }
+
+    public void ShootBow()
+    {
+        StopCoroutine(drawArrow);
+        if (bowString.GetBlendShapeWeight(0) * 2 >= 75)
+        {
+            //TODO Shoot an arrow with speed and damage based on drawprogress
+            GameObject arrowInstance;
+            Quaternion rotation = arrowSpawn.rotation;
+            Debug.Log(cam.transform.rotation.eulerAngles.x);
+            Debug.Log(rotation.x);
+            arrowInstance = Instantiate(arrowPrefab, arrowSpawn.position, rotation);
+            arrowInstance.GetComponent<Rigidbody>().AddForce(0.5f * bowString.GetBlendShapeWeight(0) * cam.transform.forward, ForceMode.Impulse);
+        }
+        bowString.SetBlendShapeWeight(0, 0);
+        bowHandle.SetBlendShapeWeight(0, 0);
+        bow.transform.localPosition = BOW_STANDARD_POSITION;
+        bow.transform.localRotation = BOW_STANDARD_ROTATION;
+        drawBar.Toggle(false);
     }
 
     private IEnumerator DrawRangedWeapon()
     {
-        while (bowString.GetBlendShapeWeight(0) <= 100f && bowHandle.GetBlendShapeWeight(0) <= 100)
+        bow.transform.localPosition = BOW_SHOOT_POSITION;
+        bow.transform.localRotation = BOW_SHOOT_ROTATION;
+        while (bowString.GetBlendShapeWeight(0) <= 50f && bowHandle.GetBlendShapeWeight(0) <= 50f)
         {
             bowString.SetBlendShapeWeight(0, bowString.GetBlendShapeWeight(0) + 25 * Time.deltaTime);
             bowHandle.SetBlendShapeWeight(0, bowHandle.GetBlendShapeWeight(0) + 25 * Time.deltaTime);
+            drawBar.setValue(bowString.GetBlendShapeWeight(0) * 2);
             yield return null;
         }
     }
