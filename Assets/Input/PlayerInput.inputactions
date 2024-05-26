@@ -37,7 +37,7 @@
                     "type": "Value",
                     "id": "b95697b2-c915-4c30-b059-7a0a91caa848",
                     "expectedControlType": "Vector2",
-                    "processors": "",
+                    "processors": "DeltaTimeScale,ScaleVector2(x=0.005,y=0.005)",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -57,6 +57,42 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "865606d8-547b-46be-ac9a-84f074ffd8b9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "faf945be-6324-45fc-92ec-1622e0b160cd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Secondary Action",
+                    "type": "Button",
+                    "id": "2e7185aa-48a5-4de6-a90c-41e0a8daa1c9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SecondaryInteract",
+                    "type": "Button",
+                    "id": "b24a66b7-0bb7-4024-a794-8619c71068a6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -143,8 +179,8 @@
                     "id": "31da1256-2828-4f3d-92d3-37cd4651b81e",
                     "path": "<Pointer>/delta",
                     "interactions": "",
-                    "processors": "DeltaTimeScale,ScaleVector2(x=0.01,y=0.01)",
-                    "groups": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
                     "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -179,6 +215,50 @@
                     "processors": "",
                     "groups": "Keyboard and Mouse",
                     "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "69de9ef5-e90d-434a-a746-a321d585b075",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e8ca02cc-f9f9-4c20-abca-ae4e97073040",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b802d5e2-80dd-4e98-9220-82f278ce6039",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Secondary Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "344ebf59-1490-4a20-80dd-8fe340a097cc",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "SecondaryInteract",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -676,17 +756,6 @@
                 },
                 {
                     "name": "",
-                    "id": "d4cf843b-75f0-4b92-83ad-53f2e78e9a2e",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse;Keyboard and Mouse",
-                    "action": "RightClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ce443b31-5f61-48a3-967b-76af185e4bbb",
                     "path": "<XRController>/devicePosition",
                     "interactions": "",
@@ -715,6 +784,17 @@
                     "processors": "",
                     "groups": "Keyboard and Mouse",
                     "action": "DoubleClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "30656c51-dcf3-4b3d-91e2-73e399b34bce",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "RightClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
