@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7107328704184397928}
-  - component: {fileID: 7674244816886925286}
   - component: {fileID: 3841973702905840136}
   - component: {fileID: 5753783580096653060}
   m_Layer: 9
@@ -35,27 +34,6 @@ Transform:
   - {fileID: 1287381302608601660}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &7674244816886925286
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789344761281934619}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 18c892059b8890a4596f792414780600, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!65 &3841973702905840136
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -151,6 +129,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4683669308469848369, guid: 872bd759d1767d84cb0ad4e9bf436596, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d249bc370f160ba4bafdbbbe009fcdba, type: 2}
     - target: {fileID: 919132149155446097, guid: 872bd759d1767d84cb0ad4e9bf436596, type: 3}
       propertyPath: m_Name
       value: Door 1

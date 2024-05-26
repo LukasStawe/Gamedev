@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6193b3f9cf18b34889b25d83f499926, type: 3}
+  m_Name: Torch
+  m_EditorClassIdentifier: 
+  name: Torch
+  description: Just a normal Torch.
+  icon: {fileID: 0}
+  itemPrefab: {fileID: 4271925690031859325, guid: 76f5fb7a4d41a7e409d53f279d3d4169, type: 3}
+  isStackable: 0
+  maxStackSize: 1
+  isCombinable: 0
+  equipSlot: 4
+  damageModifier: 0
+  attackRange: 0
+  attackSpeed: 0
+  weapon: 6
+  isRanged: 0
+  isTwoHanded: 0

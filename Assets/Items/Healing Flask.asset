@@ -19,5 +19,6 @@ MonoBehaviour:
   itemPrefab: {fileID: 3049244520894494901, guid: 5ca7383bc34b7e24c952185c9fb1f910, type: 3}
   isStackable: 1
   maxStackSize: 5
+  isCombinable: 0
   restoredHealth: 20
   usedDescription: 
