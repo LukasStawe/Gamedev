@@ -4,20 +4,26 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler //, IPointerClickHandler
 //If Reenabling remember to re-add IPointerEnterHandler and IPointerExitHandler next to MonoBehaviour
 {
     public Image icon;
     public Button removeButton;
     public TextMeshProUGUI amountUI;
-    public int amount;
+    public int amount = 0;
+
+    private InventoryUI inventoryUI;
     
-    ScriptableItem item;    
+    public ScriptableItem item = null;    
 
     private void Awake()
     {
-        PlayerScript.Instance.actions.FindActionMap("UI").FindAction("DoubleClick").performed += OnDoubleClick;
-        PlayerScript.Instance.actions.FindActionMap("UI").FindAction("RightClick").performed += OnRightClick;
+        
+    }
+
+    private void Start()
+    {
+        inventoryUI = transform.parent.parent.parent.gameObject.GetComponent<InventoryUI>();
     }
 
     public void AddItem(Item newItem)
@@ -28,10 +34,10 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         if (amount > 1)
         {
-            amountUI.enabled = true;
+            amountUI.gameObject.SetActive(true);
         } else
         {
-            amountUI.enabled = false;
+            amountUI.gameObject.SetActive(false);
         }
 
         icon.sprite = item.icon;
@@ -54,7 +60,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         amount = 0;
         icon.sprite = null;
         icon.enabled = false;
-        amountUI.enabled = false;
+        amountUI.gameObject.SetActive(false);
         removeButton.interactable = false;
     }
 
@@ -62,55 +68,57 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         item.Drop();
         Inventory.instance.Remove(item);
-
-        transform.parent.parent.parent.gameObject.GetComponent<InventoryUI>().HideTooltip();
     }
 
-    private void OnDoubleClick(InputAction.CallbackContext context)
+    public void DropMultiple(int amount)
     {
-        Debug.Log("Double Clicked!");
+        item.Drop(amount);
+        Inventory.instance.RemoveMultiple(item, amount);
+    }
+
+    public void OnDoubleClick()
+    {
+        if (item == null) return;
         UseItem();
     }
 
     public void UseItem()
     {
-        if (item != null)
-        {
-            item.Use();
-        }
+        if (item == null) return;
+        Debug.Log(item.name + " USED!");
 
-        transform.parent.parent.parent.gameObject.GetComponent<InventoryUI>().HideTooltip();
+        item.Use();        
 
-        amountUI.text = amount.ToString();
         if (amount > 1)
         {
-            amountUI.enabled = true;
+            amountUI.gameObject.SetActive(true);
+            amountUI.text = amount.ToString();
         }
         else
         {
-            amountUI.enabled = false;
+            amountUI.gameObject.SetActive(false);
+            inventoryUI.HideTooltip();
         }
     }
-    public void OnRightClick(InputAction.CallbackContext context)
+
+    public void OnRightClick()
     {
-        //TODO Implement Context Menu!
         Debug.Log("IMPLEMENT CONTEXT MENU");
-        UseItem();
+        if (item == null) return;
+        inventoryUI.CreateContextMenu(this);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Pointer Entered!");
         if (icon == null || item == null) return;
 
-        transform.parent.parent.parent.gameObject.GetComponent<InventoryUI>().DisplayTooltip(item);
+        inventoryUI.DisplayTooltip(item);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (icon == null || item == null) return;
 
-        transform.parent.parent.parent.gameObject.GetComponent<InventoryUI>().HideTooltip();
+        inventoryUI.HideTooltip();
     }
-
 }

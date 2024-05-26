@@ -7,6 +7,7 @@ public class TorchScript : Interactable
 
     public Light flame;
     public bool isLit;
+    public ScriptableWeapon torch;
 
     public override string interactTextToDisplay
     {
@@ -25,6 +26,7 @@ public class TorchScript : Interactable
     public override void Interact()
     {
         flame.enabled = !isLit;
+        flame.gameObject.SetActive(!isLit);
         isLit = !isLit;
     }
 }

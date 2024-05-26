@@ -130,7 +130,6 @@ public class PlayerScript : MonoBehaviour
         idleState = new IdleState(this);
         interactingState = new InteractingState(this);
         inventoryState = new InventoryState(this);
-        holdingState = new HoldingState(this);
 
         stateMachine.AddTransition(idleState, interactingState, () =>  readableUIScript.isShown == true || lootUI.isShown == true || dialogueUI.isShown == true);
 

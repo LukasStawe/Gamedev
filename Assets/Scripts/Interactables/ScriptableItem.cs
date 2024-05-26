@@ -12,6 +12,8 @@ public class ScriptableItem : ScriptableObject
     public bool isStackable = false;
     public int maxStackSize = 1;
 
+    public bool isCombinable = false;
+
     public virtual void Use()
     {
         //Use item
@@ -36,5 +38,14 @@ public class ScriptableItem : ScriptableObject
         ItemManager.instance.SpawnObject(name, dropPoint);
 
         Debug.Log(name + " dropped.");
+    }
+
+    public void Drop(int amount)
+    {
+        Transform dropPoint = PlayerScript.Instance.dropPoint;
+        for (int i = 0; i < amount; i++)
+        {
+            ItemManager.instance.SpawnObject(name, dropPoint);
+        }
     }
 }

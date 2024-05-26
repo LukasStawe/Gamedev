@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEditor;
+using System;
 
 [CreateAssetMenu(fileName = "New DialogueTree", menuName = "Dialogue/DialogueTree")]
 
@@ -17,7 +19,9 @@ public class DialogueTreeSO : ScriptableObject
         public string[] dialogue;
         public bool endAfterDialogue;
         public bool hasBranchPoint;
-        public BranchPoint branchPoint;
+        [HideInInspector] public BranchPoint branchPoint;
+        public bool activatesQuest;
+        [HideInInspector] public int questID;
     }
 
     /**
@@ -43,3 +47,20 @@ public class DialogueTreeSO : ScriptableObject
     }
 
 }
+
+//[CustomEditor(typeof(DialogueTreeSO))]
+//public class DialogueTreeEditor : Editor
+//{
+//    override public void OnInspectorGUI()
+//    {
+//        var script = target as DialogueTreeSO;
+
+//        script.hasBranchPoint = EditorGUILayout.Toggle("Has Branch Point", script.hasBranchPoint);
+
+//        script.activatesQUest = EditorGUILayout.Toggle("Activates Quest", script.activatesQuest);
+
+//        if (script.hasBranchPoint == true) script.branchPoint = EditorGUILayout.PropertyField(serializedObject.FindProperty("branchPoint", true);
+
+//        if (script.activatesQuest == true) script.questID = EditorGUILayout.IntField("Quest ID:", script.questID);
+//    }
+//}

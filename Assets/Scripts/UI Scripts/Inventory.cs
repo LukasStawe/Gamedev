@@ -84,18 +84,45 @@ public class Inventory : MonoBehaviour
         {
             Item newItem;
             int index = SearchForSO(item);
-            if (item.isStackable && index != -1)
+            if (!item.isStackable || index == -1)
+            {
+                newItem.item = item;
+                newItem.amount = 1;
+                items.Add(newItem);
+            } else if (items[index].amount < item.maxStackSize)
             {
                 newItem.item = item;
                 newItem.amount = items[index].amount + 1;
                 items[index] = newItem;
                 Debug.Log(items[index].amount);
-               
-            } else
+            }
+            else
             {
-                newItem.item = item;
-                newItem.amount = 1;
-                items.Add(newItem);
+                List<int> indexes = SearchForAll(item, index);
+                bool gotAdded = false;
+                bool failedToAdd = false;
+                while (!gotAdded && !failedToAdd)
+                {
+                    foreach (int number in indexes)
+                    {
+                        if (items[number].amount < item.maxStackSize)
+                        {
+                            newItem.item = item;
+                            newItem.amount = items[number].amount + 1;
+                            items[number] = newItem;
+                            Debug.Log(items[number].amount);
+                            gotAdded = true;
+                        }
+                    }
+                    if (!gotAdded) failedToAdd = true;
+                }
+                Debug.Log(failedToAdd);
+                if (failedToAdd)
+                {
+                    newItem.item = item;
+                    newItem.amount = 1;
+                    items.Add(newItem);
+                }
             }
         }        
 
@@ -127,6 +154,30 @@ public class Inventory : MonoBehaviour
         if (onItemChangedCallback != null) { onItemChangedCallback.Invoke(); }
     }
 
+    /**
+     * @param item: The item that is going to be removed from the Inventory.
+     * 
+     * Removes an Item from Inventory/the items List, either on Use or on Drop/Destroy.
+     */
+    public void RemoveMultiple(ScriptableItem item, int amount)
+    {
+        int index = SearchForSO(item);
+        if (items[index].amount == amount)
+        {
+            items.Remove(items[index]);
+        }
+        else
+        {
+            Item newItem;
+            newItem.item = item;
+            newItem.amount = items[index].amount - amount;
+            items[index] = newItem;
+            Debug.Log(items[index].amount);
+        }
+
+        if (onItemChangedCallback != null) { onItemChangedCallback.Invoke(); }
+    }
+
     /// <summary>
     /// Adds an amount (positive or negative) to the players money.
     /// </summary>
@@ -147,6 +198,19 @@ public class Inventory : MonoBehaviour
             }
         }
         return -1;
+    }
+
+    public List<int> SearchForAll(ScriptableItem item, int index)
+    {
+        List<int> indexes = new List<int>();
+        for (int i = index + 1; i < items.Count; i++)
+        {
+            if (items[i].item == item)
+            {
+                indexes.Add(i);
+            }
+        }
+        return indexes;
     }
 }
 public struct Ammo

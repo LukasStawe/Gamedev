@@ -20,6 +20,8 @@ public class LootUI : MonoBehaviour
 
     public List<ScriptableItem> lootCopy;
 
+    private LootChest currentScript = null;
+
     private void OnEnable()
     {
         Actions.OnLoot += UpdateUIAfterLooting;
@@ -45,6 +47,11 @@ public class LootUI : MonoBehaviour
 
     public void Hide()
     {
+        if (currentScript!=null && lootCopy.Count > 0)
+        {
+            currentScript.CloseChest();
+        }
+        currentScript = null;
         container.SetActive(false);
 
         EmptyList();
@@ -54,6 +61,11 @@ public class LootUI : MonoBehaviour
 
     public void createUI(LootableScript lootScript)
     {
+        if (lootScript is LootChest)
+        {
+            currentScript = lootScript as LootChest;
+        }
+
         lootCopy = lootScript.loot;
 
         window.sizeDelta = new Vector2(300, 80 + lootCopy.Count * 100);
@@ -104,6 +116,7 @@ public class LootUI : MonoBehaviour
         {
             Inventory.instance.Add(item);
         }
+        lootCopy.Clear();
 
         Hide();
     }

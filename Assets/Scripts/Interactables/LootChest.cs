@@ -18,6 +18,10 @@ public class LootChest : LootableScript
     //Reference to the LootUI in PlayerInventory Canvas
     [SerializeField] private LootUI lootUI;
 
+    [SerializeField] private Transform rotationPoint;
+
+    [SerializeField] private Transform upperChest;
+
     //Text to display when looking at the Chest
     public override string interactTextToDisplay
     {
@@ -53,8 +57,15 @@ public class LootChest : LootableScript
         {
             base.Interact();
 
-            lootUI.createUI(this);
+            StartCoroutine(MoveChest(30f));
+
+            StartCoroutine(WaitFor(1f));
         }
+    }
+
+    public void CloseChest(float degree = -30f)
+    {
+        StartCoroutine(MoveChest(degree));
     }
 
     /// <summary>
@@ -76,7 +87,7 @@ public class LootChest : LootableScript
         if (loot.Count == 0)
         {
             //TODO Mark Chest as empty -> Open
-            this.GetComponent<BoxCollider>().enabled = false;
+            Destroy(this);
         }
     }
 
@@ -85,8 +96,21 @@ public class LootChest : LootableScript
     /// </summary>
     /// <param name="degree"> The degree by which the upper part of the chest should rotate </param>
     /// <returns> Waits a frame after a rotating-step </returns>
-    //private IEnumerator MoveChest(float degree)
-    //{
-    //    //TODO
-    //}
+    private IEnumerator MoveChest(float degree)
+    {
+        //TODO
+        for (var t = 0f; t < 1; t += Time.deltaTime / 1f)
+        {
+            upperChest.RotateAround(rotationPoint.position, -Vector3.forward, degree * Time.deltaTime);
+            yield return null;
+        }        
+        yield break;
+    }
+
+    private IEnumerator WaitFor(float time)
+    {
+        yield return new WaitForSeconds(time);
+        lootUI.createUI(this);
+        yield break;
+    }
 }

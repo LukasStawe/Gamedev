@@ -12,6 +12,7 @@ TagManager:
   - canPickUp
   - player
   - Enemy
+  - hasSecondary
   layers:
   - Default
   - TransparentFX
@@ -31,8 +32,8 @@ TagManager:
   - Container
   - Pickupable
   - Trigger
-  - 
-  - 
+  - Equipment
+  - Button
   - 
   - 
   - 

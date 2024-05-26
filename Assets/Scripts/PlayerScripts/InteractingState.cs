@@ -36,6 +36,7 @@ public class InteractingState : IState
 
         if (playerScript.lootUI.isShown && Input.GetButtonDown("Loot All"))
         {
+            Debug.Log("All looted");
             playerScript.lootUI.LootAll();
         }
     }

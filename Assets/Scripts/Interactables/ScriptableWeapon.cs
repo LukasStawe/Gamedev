@@ -42,7 +42,7 @@ public class ScriptableWeapon : ScriptableEquipment
      */
     public enum WeaponType
     {
-        Sword, Axe, Spear, Crossbow, Bow, Club
+        Sword, Axe, Spear, Crossbow, Bow, Club, Torch
     }
 
 }

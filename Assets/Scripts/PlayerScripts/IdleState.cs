@@ -36,6 +36,7 @@ public class IdleState : IState
 
     public void OnEnter()
     {
+        Time.timeScale = 1;
         playerInput = playerScript.GetComponent<PlayerInput>();
         playerInput.actions.FindActionMap("Player").Enable();
         Cursor.lockState = CursorLockMode.Locked;
@@ -46,6 +47,7 @@ public class IdleState : IState
 
     public void OnExit()
     {
+        Time.timeScale = 0;
         playerScript.crossHair.gameObject.SetActive(false);
         playerInput.actions.FindActionMap("Player").Disable();
     }
@@ -54,14 +56,14 @@ public class IdleState : IState
     {
         #region Movement-Script
 
-        if (Input.GetButtonDown("Sprint") && !isCrouched)
-        {
-            playerScript.speed += 2f;
-        }
-        if (Input.GetButtonUp("Sprint") && !isCrouched)
-        {
-            playerScript.speed = 6f;
-        }
+        //if (Input.GetButtonDown("Sprint") && !isCrouched)
+        //{
+        //    playerScript.speed += 2f;
+        //}
+        //if (Input.GetButtonUp("Sprint") && !isCrouched)
+        //{
+        //    playerScript.speed = 6f;
+        //}
 
         #endregion
 
@@ -92,19 +94,6 @@ public class IdleState : IState
             #region Interact-Script
         if (!playerScript.isHolding)
         {
-            if (Input.GetButtonDown("Interact"))
-            {
-                InteractWithItem();
-            }
-
-            //if (Input.GetButtonDown("Unlock"))
-            //{
-            //    UnlockDoorChest();
-            //}
-            if (Input.GetButtonDown("Use"))
-            {
-                EatConsumable();
-            }
             // TODO Remove after testing
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -136,72 +125,7 @@ public class IdleState : IState
             playerScript.crossHair.color = Color.black;
         }
         #endregion
-
-        #region Holding-Script
-        if (playerScript.isHolding)
-        {
-            MoveObject();
-
-            if (Input.GetKeyUp(KeyCode.Mouse1))
-            {
-                Drop();
-            }
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                Throw();
-            }
-        }
-        #endregion
-
-        #region Mouse-Script
-        if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
-        {
-            //LookAround();
-        }
-        #endregion
     }
-
-    public void FixedTick()
-    {
-        //if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-        //{
-        //    Move();
-        //}
-    }
-
-    //private void GroundCheck()
-    //{
-    //    if (Physics.Raycast(playerScript.transform.position, Vector3.down, playerScript.groundDistance))
-    //    {
-    //        isGrounded = true;
-    //    }
-    //    else
-    //    {
-    //        isGrounded = false;
-    //    }
-    //}
-
-    //public void Move()
-    //{       
-    //    float x = Input.GetAxis("Horizontal");
-    //    float z = Input.GetAxis("Vertical");      
-
-    //    camUp = playerScript.cam.transform.forward;
-    //    camUp.y = 0f;
-    //    camUp.Normalize();
-
-    //    camRight = playerScript.cam.transform.right;
-    //    camRight.y = 0f;
-    //    camRight.Normalize();
-
-    //    Vector3 move = Vector3.zero;
-    //    move += camUp * z;
-    //    move += camRight * x;
-
-    //    playerScript.rigidBody.MovePosition(playerScript.transform.position + move * playerScript.speed * Time.deltaTime);
-
-    //    PlaySound();
-    //}
 
     private void PlaySound()
     {
@@ -286,25 +210,7 @@ public class IdleState : IState
 
         //Gizmos.DrawWireCube(playerScript.interactPoint.position, playerScript.interactVector * 2);
     }
-
-    //public void LookAround()
-    //{
-    //    Cursor.lockState = CursorLockMode.Locked;
-    //    Cursor.visible = false;
-
-    //    float mouseX = Input.GetAxis("Mouse X") * playerScript.mouseSensitivity;
-    //    float mouseY = Input.GetAxis("Mouse Y") * playerScript.mouseSensitivity;
-
-    //    xRotation -= mouseY;
-    //    xRotation = Mathf.Clamp(xRotation, -85f, 85f);
-    //    yRoation += mouseX;
-        
-    //    playerScript.transform.localRotation = Quaternion.Euler(0, yRoation, 0);
-    //    //playerScript.playerBody.Rotate(Vector3.up * mouseX);
-
-    //    playerScript.cam.transform.rotation = Quaternion.Euler(xRotation, yRoation, 0);
-    //}
-
+    
     public ParentInteractables GetInteractableObject()
     {
         Ray ray = playerScript.cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
@@ -318,114 +224,9 @@ public class IdleState : IState
         }
 
         return null;
-    }
+    }     
 
-    public void InteractWithItem()
+    public void FixedTick()
     {
-
-        Ray ray = playerScript.cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        RaycastHit hit;
-        if (Physics.SphereCast(ray, playerScript.interactRadius, out hit, playerScript.interactRange, usables))
-        {
-            if (hit.collider.TryGetComponent(out ParentInteractables interactables))
-            {
-                if (hit.collider.gameObject.tag == "canPickUp")
-                {
-                    interactables.Interact();
-                    PickupObject(hit.collider.gameObject);
-                } else
-                {
-                    interactables.Interact();
-                }
-            }
-        }
-    }
-
-    public void UnlockDoorChest()
-    {
-
-        Ray ray = playerScript.cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        RaycastHit hit;
-        if (Physics.SphereCast(ray, playerScript.interactRadius, out hit, playerScript.interactRange, playerScript.interactables))
-        {
-            if (hit.collider.TryGetComponent(out DoorInteraction doorScript))
-            {
-                if (doorScript.isLocked)
-                {
-                    doorScript.Unlock();
-                }
-            } else if (hit.collider.TryGetComponent(out LootChest lootScript))
-            {
-                if (lootScript.isLocked)
-                {
-                    lootScript.Unlock();
-                }
-            }
-        }
-    }
-
-    public void EatConsumable()
-    {
-        Ray ray = playerScript.cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        RaycastHit hit;
-        if (Physics.SphereCast(ray, playerScript.interactRadius, out hit, playerScript.interactRange, playerScript.consumables))
-        {
-            if (hit.collider.TryGetComponent(out ConsumablePickup consumable))
-            {
-                consumable.Eat();
-            }
-        }
-    }
-
-    public void PickupObject(GameObject pickupObj)
-    {
-        playerScript.isHolding = true;
-        heldObj = pickupObj;
-        heldObjRig = pickupObj.GetComponent<Rigidbody>();
-
-        heldObjRig.useGravity = false;
-        heldObjRig.drag = 10;
-        heldObjRig.constraints = RigidbodyConstraints.FreezeRotation;
-
-        heldObj.transform.parent = playerScript.holdPoint;
-    }
-
-    private void MoveObject()
-    {
-        if (Vector3.Distance(heldObj.transform.position, playerScript.holdPoint.position) > 0.1f)
-        {
-            Vector3 moveDirection = (playerScript.holdPoint.position - heldObj.transform.position);
-            heldObjRig.AddForce(moveDirection * throwForce);
-        }
-    }
-
-    private void Drop()
-    {
-        Debug.Log("Object dropped");
-
-        heldObjRig.useGravity = true;
-        heldObjRig.drag = 1;
-        heldObjRig.constraints = RigidbodyConstraints.None;
-
-        heldObj.transform.parent = null;
-        heldObj = null;
-        heldObjRig = null;
-
-        playerScript.isHolding = false;
-    }
-
-    private void Throw()
-    {
-        heldObjRig.useGravity = true;
-        heldObjRig.drag = 1;
-        heldObjRig.constraints = RigidbodyConstraints.None;
-
-        heldObjRig.AddForce(playerScript.cam.transform.forward * throwForce, ForceMode.Impulse);
-
-        heldObj.transform.parent = null;
-        heldObj = null;
-        heldObjRig = null;
-
-        playerScript.isHolding = false;
     }
 }
